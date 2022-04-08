@@ -1,0 +1,123 @@
+.root {
+  //   font-family: "Spartan";
+  position: absolute;
+  width: 100%;
+  .section1 {
+    background: radial-gradient(50% 50% at 50% 50%, #00dbff 0%, #20b7ef 100%);
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__containerLogo {
+      &__logo {
+        height: 2rem;
+        width: auto;
+      }
+    }
+    &__containerTitle {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      &__title {
+        &--1 {
+          color: #00389e;
+          font-size: 90px;
+        }
+        &--2 {
+          color: white;
+          font-size: 70px;
+        }
+      }
+      &__subtitle {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        width: 50%;
+        text-align: center;
+      }
+      &__buttons {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        column-gap: 10%;
+      }
+    }
+    &__containerSocialmedia {
+      display: flex;
+      margin-top: 50px;
+      column-gap: 10px;
+      &__socialmedia {
+        height: 2rem;
+        width: 2rem;
+      }
+      &__socialmedia:hover {
+        cursor: pointer;
+      }
+    }
+    &__turist {
+      height: 450px;
+      position: absolute;
+      right: calc(5% + 10px);
+      bottom: 0px;
+    }
+  }
+  .section2 {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+    &__titleContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0px;
+      &__title {
+        color: #00389e;
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid black;
+        padding: 0px 80px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .section3 {
+    position: relative;
+    width: 100%;
+    padding: 50px;
+    height: 400px;
+    background: radial-gradient(50% 50% at 50% 50%, #0d2149 0%, #142f66 100%);
+    display: flex;
+    align-items: center;
+    &__text {
+      width: 500px;
+      &__title {
+        color: #ff7b5f;
+        font-size: 36px;
+        font-weight: bold;
+      }
+      &__subtitle {
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      &__button {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    &__image {
+      height: 380px;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+  }
+}
