@@ -8,7 +8,7 @@ const places = [
   },
   {
     name: "Catarata Chayape",
-    difficulty: "Facil",
+    difficulty: "Fácil",
     walkTime: "1 hora",
     time: "3",
     city: "Lima",
@@ -35,7 +35,7 @@ const places = [
     city: "Cusco",
   },
   {
-    name: "Rupac",
+    name: "Rúpac",
     difficulty: "Media",
     walkTime: "2-3 horas",
     time: "3",

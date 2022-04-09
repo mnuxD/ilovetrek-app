@@ -1,18 +1,20 @@
+import { useNavigate } from "react-router-dom";
+
 import { ButtonSecondaryPurple } from "../../components/ButtonSecondaryPurple";
 import { ButtonSecondary } from "../../components/ButtonSecondary";
 import { SearchPlaces } from "../../components/SearchPlaces";
-
 import images from "../../images/images.jsx";
 
 import "./_LandingPage.scss";
 
 const { logo, ig, fb, tiktok, turist, guide } = images;
 const LandingPage = () => {
+  const navigate = useNavigate();
   const handleClick = () => {
     console.log("Gola");
   };
   return (
-    <div className="root">
+    <div className="landing">
       <section className="section1">
         <div className="section1__containerLogo">
           <img
@@ -33,8 +35,14 @@ const LandingPage = () => {
             tu experiencia.
           </p>
           <div className="section1__containerTitle__buttons">
-            <ButtonSecondaryPurple label="Ingresar" />
-            <ButtonSecondaryPurple label="Registrarme" />
+            <ButtonSecondaryPurple
+              onClick={() => navigate("/ingresar")}
+              label="Ingresar"
+            />
+            <ButtonSecondaryPurple
+              onClick={() => navigate("/registro")}
+              label="Registrarme"
+            />
           </div>
         </div>
         <div className="section1__containerSocialmedia">

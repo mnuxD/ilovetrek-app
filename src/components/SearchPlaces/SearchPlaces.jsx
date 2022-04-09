@@ -18,17 +18,23 @@ const SearchPlaces = () => {
 
   const filter = () => {
     let selected = [];
+    const transformText = (str) => {
+      return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    };
     places?.map((placemap, i) => {
       if (
-        placemap.name
-          .toLowerCase()
-          .includes(place.current.value.toLowerCase()) &&
-        placemap.city
-          .toLowerCase()
-          .startsWith(city.current.value.toLowerCase()) &&
-        placemap.difficulty
-          .toLowerCase()
-          .startsWith(difficulty.current.value.toLowerCase())
+        transformText(placemap.name).includes(
+          transformText(place.current.value)
+        ) &&
+        transformText(placemap.city).includes(
+          transformText(city.current.value)
+        ) &&
+        transformText(placemap.difficulty).includes(
+          transformText(difficulty.current.value)
+        )
       ) {
         selected.push(placemap);
       }
@@ -84,21 +90,27 @@ const SearchPlaces = () => {
         </form>
         <form className="search__form">
           <span className="search__form__label">Dificultad: </span>
-          <input
+          <select
             className="search__form__input"
             placeholder="Dificultad del destino"
             ref={difficulty}
             onChange={filter}
-          />
+            defaultValue=""
+          >
+            <option value="">Seleccione una dificultad</option>
+            <option value="Facil">Fácil</option>
+            <option value="Media">Media</option>
+            <option value="Exigente">Exigente</option>
+            <option value="Experto">Experto</option>
+          </select>
           <input
             onClick={handleCleanDifficulty}
-            className="search__form__button"
+            className="search__form__button2"
             type="reset"
             value="X"
           />
         </form>
       </div>
-
       {selectedPlaces.length !== 0 ? (
         <CarouselCards
           body={selectedPlaces.map((place, i) => (
@@ -114,13 +126,13 @@ const SearchPlaces = () => {
           ))}
         />
       ) : (
-        <div className="notFound">
+        <div className="carousel__notFound">
           <img
-            className="notFound__image"
+            className="carousel__notFound__image"
             src={notfound}
             alt="place not found"
           />
-          <p className="notFound__text">
+          <p className="carousel__notFound__text">
             No hemos encontrado el destino que buscas :(
           </p>
         </div>
