@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
-import { CarouselCards } from "../../components/Carousel";
-import { CardPlace } from "../../components/CardPlace";
+import { CarouselCards2 } from "../Carousel";
+import { CardPlace } from "../CardPlace";
 
 import images from "../../images/images.jsx";
 import places from "../../utils/constants/MockPlaces";
@@ -10,7 +10,7 @@ import "./_SearchPlaces.scss";
 
 const { catarata, notfound } = images;
 
-const SearchPlaces2 = () => {
+const SearchPlaces = () => {
   const [selectedPlaces, setSelectedPlaces] = useState(places);
   const place = useRef("");
   const city = useRef("");
@@ -32,6 +32,7 @@ const SearchPlaces2 = () => {
       }
       return a;
     };
+
     places?.map((placemap, i) => {
       if (
         filterByName(placemap.name, place.current.value) &&
@@ -61,8 +62,14 @@ const SearchPlaces2 = () => {
     filter();
   };
   return (
-    <>
-      <div className="search">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <div className="search search2">
         <form className="search__form">
           <span className="search__form__label">Lugar: </span>
           <input
@@ -121,7 +128,7 @@ const SearchPlaces2 = () => {
         </form>
       </div>
       {selectedPlaces.length !== 0 ? (
-        <CarouselCards
+        <CarouselCards2
           body={selectedPlaces.map((place, i) => (
             <CardPlace
               key={i}
@@ -146,8 +153,8 @@ const SearchPlaces2 = () => {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default SearchPlaces2;
+export default SearchPlaces;

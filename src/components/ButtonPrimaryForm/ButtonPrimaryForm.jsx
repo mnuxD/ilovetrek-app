@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const ButtonPrimary = ({ label, onClick }) => {
+const ButtonPrimaryForm = ({ label }) => {
   return (
     <>
       <Button
@@ -9,7 +9,7 @@ const ButtonPrimary = ({ label, onClick }) => {
           backgroundColor: "#9f2dc7",
           border: "1px solid #9f2dc7",
         }}
-        onClick={onClick}
+        type="submit"
       >
         {label}
       </Button>
@@ -17,4 +17,4 @@ const ButtonPrimary = ({ label, onClick }) => {
   );
 };
 
-export default ButtonPrimary;
+export default ButtonPrimaryForm;

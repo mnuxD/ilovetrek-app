@@ -3,12 +3,16 @@
   justify-content: space-around;
   align-items: center;
   background-color: #20b7ef;
-  height: 60px;
+  height: auto;
   border-radius: 30px;
-  width: calc(80% + 50px);
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 10px;
+  height: auto;
+  width: auto;
   align-self: center;
   margin-bottom: 20px;
-  padding: 5px 40px;
+  padding: 12px 40px;
   &__form {
     display: flex;
     &__label {
@@ -35,6 +39,12 @@
     }
   }
 }
+
+.search2 {
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
 .notFound {
   height: 387px;
   display: flex;
@@ -48,5 +58,21 @@
   &__text {
     font-size: 25px;
     font-weight: bold;
+  }
+}
+
+@media (max-width: 1300px) {
+  .search {
+    &__form {
+      &__label {
+        display: none;
+      }
+      &__input {
+      }
+      &__button {
+      }
+      &__button2 {
+      }
+    }
   }
 }

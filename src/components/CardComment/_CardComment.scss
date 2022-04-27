@@ -1,0 +1,78 @@
+.cardComment {
+  width: 400px;
+  background-color: white;
+  &__containerImage {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin: 0px;
+    position: relative;
+    &__image {
+      position: absolute;
+      left: -100%;
+      right: -100%;
+      top: -100%;
+      bottom: -100%;
+      margin: auto;
+      min-height: 100%;
+      min-width: 100%;
+    }
+  }
+  &__containerText {
+    padding: 15px;
+    &__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      &__item {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        &__name {
+          margin: 0px;
+          font-size: 18px;
+          font-weight: bold;
+          width: 175px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        &__rating {
+          margin: 0px;
+          margin-right: -5px;
+        }
+      }
+    }
+    &__commentContainer {
+      height: 80px;
+      overflow: auto;
+    }
+    &__commentContainer::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+
+    &__commentContainer::-webkit-scrollbar:vertical {
+      width: 6px;
+      height: 80%;
+    }
+
+    &__commentContainer::-webkit-scrollbar-button:increment,
+    &__commentContainer::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    &__commentContainer::-webkit-scrollbar:horizontal {
+      height: 6px;
+    }
+
+    &__commentContainer::-webkit-scrollbar-thumb {
+      background-color: #bdbdbd;
+      border-radius: 20px;
+    }
+
+    &__container::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+  }
+}

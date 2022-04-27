@@ -1,3 +1,4 @@
 import SearchPlaces from "./SearchPlaces";
+import SearchPlaces2 from "./SearchPlaces2";
 
-export { SearchPlaces };
+export { SearchPlaces, SearchPlaces2 };

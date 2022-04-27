@@ -6,8 +6,12 @@
   justify-content: center;
   align-items: center;
   &__container {
-    padding: 60px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 60px;
     width: 700px;
+    height: calc(100% - 50px);
     background: #ffffff;
     border: 1px solid #000000;
     box-sizing: border-box;
@@ -20,7 +24,7 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        padding: 20px 0px;
+        padding: 0px 0px 10px 0px;
         &-button {
           background-color: #9f2dc7;
           border-color: #9f2dc7;
@@ -67,5 +71,31 @@
         cursor: pointer;
       }
     }
+  }
+  &__container::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  &__container::-webkit-scrollbar:vertical {
+    width: 6px;
+    height: 80%;
+  }
+
+  &__container::-webkit-scrollbar-button:increment,
+  &__container::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &__container::-webkit-scrollbar:horizontal {
+    height: 6px;
+  }
+
+  &__container::-webkit-scrollbar-thumb {
+    background-color: #bdbdbd;
+    border-radius: 20px;
+  }
+
+  &__container::-webkit-scrollbar-track {
+    border-radius: 10px;
   }
 }

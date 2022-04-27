@@ -51,7 +51,7 @@ const Register = () => {
   return (
     <div className="register">
       <div className="register__container">
-        <h1 className="register__container__title">Iniciar Sesión</h1>
+        <h1 className="register__container__title">Registrarme</h1>
         <Form
           {...formItemLayout}
           form={form}

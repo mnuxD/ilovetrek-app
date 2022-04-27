@@ -6,6 +6,8 @@ import turist from "./turist.png";
 import catarata from "./catarata.jpg";
 import guide from "./guide.png";
 import notfound from "./notfound.png";
+import man from "./man.jpg";
+import woman from "./woman.jpg";
 
 const images = {
   logo: logo,
@@ -16,6 +18,8 @@ const images = {
   guide: guide,
   catarata: catarata,
   notfound: notfound,
+  man: man,
+  woman: woman,
 };
 
 export default images;

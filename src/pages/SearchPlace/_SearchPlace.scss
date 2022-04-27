@@ -1,0 +1,23 @@
+.searchPlace {
+  padding: 40px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__title {
+    color: #00389e;
+    margin-bottom: 40px;
+    padding: 0px 30px;
+    text-align: center;
+  }
+  &__container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .searchPlace {
+    &__container {
+      width: 400px;
+    }
+  }
+}

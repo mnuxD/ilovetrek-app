@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 
-const ButtonPrimary = ({ label, onClick }) => {
+const ButtonPrimaryOutlined = ({ label, onClick }) => {
   return (
     <>
       <Button
         variant="contained"
         style={{
-          backgroundColor: "#9f2dc7",
+          backgroundColor: "white",
           border: "1px solid #9f2dc7",
+          color: "#9f2dc7",
         }}
         onClick={onClick}
       >
@@ -17,4 +18,4 @@ const ButtonPrimary = ({ label, onClick }) => {
   );
 };
 
-export default ButtonPrimary;
+export default ButtonPrimaryOutlined;

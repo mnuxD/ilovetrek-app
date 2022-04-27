@@ -1,0 +1,32 @@
+.button {
+  background-color: #e9e9e9;
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  padding: 10px 30px;
+  border-radius: 30px;
+  width: fit-content;
+  &__plus {
+    font-size: 40px;
+    font-weight: 900;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    text-justify: center;
+    line-height: 32px;
+  }
+  &__label {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+  }
+}
+.button:hover {
+  background-color: #dbdbdb;
+  cursor: pointer;
+}
+.button:active {
+  background-color: #cccccc;
+}
