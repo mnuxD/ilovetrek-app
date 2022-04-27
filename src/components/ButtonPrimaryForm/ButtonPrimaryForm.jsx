@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const ButtonPrimaryForm = ({ label }) => {
+const ButtonPrimaryForm = ({ label, disabled }) => {
   return (
     <>
       <Button
@@ -10,6 +10,7 @@ const ButtonPrimaryForm = ({ label }) => {
           border: "1px solid #9f2dc7",
         }}
         type="submit"
+        disabled={disabled}
       >
         {label}
       </Button>

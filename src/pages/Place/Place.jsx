@@ -16,7 +16,7 @@ import images from "../../images/images";
 import comments from "../../utils/constants/MockComments";
 import { ModalComment } from "../../components/ModalComment";
 
-const { catarata, man, woman } = images;
+const { catarata, man } = images;
 
 const Place = () => {
   const color = "#00d23b";
@@ -156,11 +156,14 @@ const Place = () => {
           y tomar el transporte publico hacia la ciudad de Matucana. Una vez
           ahi, dirígete hacia la entrada de la ruta a una cuadra de la plaza de
           armas (puedes preguntar una referencia a los lugareños). Deberás pagar
-          una entrada de S./3.00 y empezarás la ruta hacia Antankallo. Recuerda
-          llevar bloqueador solar, repelente, agua para el camino y alimentos
-          ligeros. También ten en cuenta llevar ropa adecuada ya que es un lugar
-          caluroso, asi como calzado con cocadas ya que el camino es accidentado
-          y empinado por ciertos tramos.
+          una entrada de S./3.00 y empezarás la ruta hacia Antankallo.
+        </p>
+        <p className="place__section2__title">Recomendaciones</p>
+        <p className="place__section2__text">
+          Recuerda llevar bloqueador solar, repelente, agua para el camino y
+          alimentos ligeros. También ten en cuenta llevar ropa adecuada ya que
+          es un lugar caluroso, asi como calzado con cocadas ya que el camino es
+          accidentado y empinado por ciertos tramos.
         </p>
         <p className="place__section2__title">
           ¿Ya has visitado Catarata Antankallo?

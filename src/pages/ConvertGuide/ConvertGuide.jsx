@@ -28,11 +28,11 @@ const ConvertGuide = () => {
               ¿Qué significa ser un guía?
             </p>
             <p className="guide__container__text">
-              Como guía de I LOVE TREK podrás registrar nuevos destinos en la
-              sección de “Buscar un destino” y dar a conocer nuestro maravilloso
-              país a los amantes del trekking. Por otro lado, podrás registrar
-              en la plataforma grupos más numerosos de personas a quienes vayas
-              a guiar en alguna ruta de trekking.
+              Como guía de I LOVE TREK podrás editar y registrar nuevos destinos
+              en la sección de “Buscar un destino” y dar a conocer nuestro
+              maravilloso país a los amantes del trekking. Por otro lado, podrás
+              registrar en la plataforma grupos más numerosos de personas a
+              quienes vayas a guiar en alguna ruta de trekking.
             </p>
             <p className="guide__container__subtitle">
               ¿Por qué necesitan mis datos?
