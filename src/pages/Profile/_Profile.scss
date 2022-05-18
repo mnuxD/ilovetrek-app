@@ -18,10 +18,17 @@
     row-gap: 40px;
     width: 100%;
     &__imgContainer {
+      width: 200px;
+      height: 200px;
+      background-color: #bcbdbd;
+      color: white;
+      font-size: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &__img {
         width: 200px;
         height: 200px;
-
         object-position: center;
         object-fit: cover;
       }
@@ -30,7 +37,7 @@
       min-width: 350px;
       &__row {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         &__text {
           font-size: 20px;
           &__subtext {
@@ -55,7 +62,7 @@
     &__body {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       flex-wrap: wrap;
       column-gap: 50px;
       row-gap: 40px;
@@ -93,7 +100,7 @@
         min-width: 350px;
         &__row {
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
           &__text {
             font-size: 20px;
             &__subtext {

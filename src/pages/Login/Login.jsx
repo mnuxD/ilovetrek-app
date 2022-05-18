@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { loginUserAsync } from "../../redux/slices/userSlice";
 
 import { Form, Input, Button, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
@@ -12,10 +15,25 @@ const { logo } = images;
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [cont, setCont] = useState(0);
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  // Status to know if the user is logged in
+  const stateLoggedUser = JSON.parse(
+    localStorage.getItem("infoUserILoveTrekApp")
+  )?.token;
+
+  const onFinish = async (values) => {
+    await dispatch(loginUserAsync(values));
+    setCont(cont + 1);
   };
+
+  useEffect(() => {
+    if (stateLoggedUser) {
+      console.log("Hola");
+      window.location = "/buscar-destino";
+    }
+  }, [cont]);
 
   return (
     <div className="login">

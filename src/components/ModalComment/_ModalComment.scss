@@ -5,7 +5,8 @@
     align-items: center;
     width: 600px;
     height: 450px;
-    background-color: rgb(243, 243, 243);
+
+    background-color: rgb(230, 230, 230, 0.3);
     &__content {
       display: flex;
       flex-direction: column;
@@ -16,14 +17,15 @@
       &__text {
         margin-top: 8px;
         font-size: 20px;
+        font-weight: bold;
       }
     }
   }
   &__button:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(196, 196, 196, 0.3);
   }
   &__button:active {
-    background-color: rgb(196, 196, 196);
+    background-color: rgba(159, 159, 159, 0.3);
   }
   &__body {
     padding: 20px;

@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 import { CarouselCards } from "../../components/Carousel";
 import { CardPlace } from "../../components/CardPlace";
 
 import images from "../../images/images.jsx";
-import places from "../../utils/constants/MockPlaces";
+// import places from "../../utils/constants/MockPlaces";
 
 import "./_SearchPlaces.scss";
 
-const { catarata, notfound } = images;
+const { notfound } = images;
 
-const SearchPlaces2 = () => {
+const SearchPlaces = ({ places }) => {
   const [selectedPlaces, setSelectedPlaces] = useState(places);
   const place = useRef("");
   const city = useRef("");
@@ -110,7 +110,7 @@ const SearchPlaces2 = () => {
             <option value="Facil">Fácil</option>
             <option value="Media">Media</option>
             <option value="Exigente">Exigente</option>
-            <option value="Experto">Experto</option>
+            <option value="Dificil">Difícil</option>
           </select>
           <input
             onClick={handleCleanDifficulty}
@@ -120,17 +120,18 @@ const SearchPlaces2 = () => {
           />
         </form>
       </div>
-      {selectedPlaces.length !== 0 ? (
+      {selectedPlaces?.length !== 0 ? (
         <CarouselCards
-          body={selectedPlaces.map((place, i) => (
+          body={selectedPlaces?.map((place, i) => (
             <CardPlace
               key={i}
+              id={place._id}
               name={place.name}
               difficulty={place.difficulty}
-              walkTime={place.walkTime}
               time={place.time}
+              time_city={place.time_city}
               city={place.city}
-              image={catarata}
+              image={place.photos[0]}
             />
           ))}
         />
@@ -150,4 +151,4 @@ const SearchPlaces2 = () => {
   );
 };
 
-export default SearchPlaces2;
+export default SearchPlaces;

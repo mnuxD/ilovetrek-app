@@ -23,8 +23,8 @@
         top: -100%;
         bottom: -100%;
         margin: auto;
-        min-height: 100%;
-        min-width: 100%;
+        height: auto;
+        width: 100%;
       }
     }
     &__infoContainer {
@@ -53,7 +53,9 @@
     &__title {
       font-size: 36px;
       font-weight: bold;
-      margin: 10px 0px 5px 0px;
+      margin: 50px 0px 5px 0px;
+      padding-top: 20px;
+      border-top: 1px solid black;
     }
     &__container {
       display: flex;

@@ -1,23 +1,49 @@
 import { Input } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonPrimaryForm } from "../../components/ButtonPrimaryForm";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
-
+import {
+  updateUser2Async,
+  userToEdit,
+  toUser,
+} from "../../redux/slices/userSlice";
 import "./_ConvertGuide.scss";
+import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
 
 const ConvertGuide = () => {
+  const ID = JSON.parse(localStorage.getItem("infoUserILoveTrekApp"))?._id;
+  const USER = useSelector(toUser);
+  const dispatch = useDispatch();
   const [send, setSend] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { elements } = e.target;
+    const guideProfile = {
+      status: "send",
+      instagram: elements[0].value,
+      facebook: elements[1].value,
+      linkedin: elements[2].value,
+      other1: elements[3].value,
+      other2: elements[4].value,
+      other3: elements[5].value,
+      about_you: elements[6].value,
+    };
+    dispatch(userToEdit(guideProfile));
+    await dispatch(updateUser2Async({ id: ID, ...guideProfile }));
     setSend(true);
   };
 
   const handleSendOther = () => {
     setSend(false);
   };
+  useEffect(() => {
+    if (USER?.status === "send") {
+      setSend(true);
+    }
+  }, [USER?.status]);
   return (
     <>
       {!send ? (

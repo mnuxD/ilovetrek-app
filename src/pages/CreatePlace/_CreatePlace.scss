@@ -129,3 +129,25 @@ input {
     }
   }
 }
+
+.created {
+  height: 100vh;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fafafa;
+  &__title {
+    color: #00389e;
+    margin-bottom: 40px;
+    padding: 0px 30px;
+    text-align: center;
+  }
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

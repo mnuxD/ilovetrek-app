@@ -22,7 +22,7 @@ function App() {
             <Route path="/ingresar" element={<Login />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/buscar-destino" element={<SearchPlace />} />
-            <Route path="/buscar-destino/place" element={<Place />} />
+            <Route path="/buscar-destino/place/:id" element={<Place />} />
             <Route path="/perfil" element={<Profile />} />
             <Route path="/convertirme-en-guia" element={<ConvertGuide />} />
             <Route path="/crear-destino" element={<CreatePlace />} />

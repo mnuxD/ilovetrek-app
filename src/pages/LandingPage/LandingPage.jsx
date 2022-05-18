@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ButtonSecondaryPurple } from "../../components/ButtonSecondaryPurple";
@@ -5,10 +6,21 @@ import { ButtonSecondary } from "../../components/ButtonSecondary";
 import { SearchPlaces } from "../../components/SearchPlaces";
 import images from "../../images/images.jsx";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPlacesAsync, allPlaces } from "../../redux/slices/placeSlice";
+
 import "./_LandingPage.scss";
 
 const { logo, ig, fb, tiktok, turist, guide } = images;
 const LandingPage = () => {
+  const dispatch = useDispatch();
+  const places = useSelector(allPlaces);
+
+  useEffect(async () => {
+    const places_await = await dispatch(getAllPlacesAsync());
+    console.log(places);
+  }, []);
+
   const navigate = useNavigate();
   const handleClick = () => {
     console.log("Gola");
@@ -70,7 +82,7 @@ const LandingPage = () => {
             Elige el destino ideal para ti
           </h1>
         </div>
-        <SearchPlaces />
+        {places && <SearchPlaces places={places} />}
       </section>
       <section className="section3">
         <div className="section3__text">

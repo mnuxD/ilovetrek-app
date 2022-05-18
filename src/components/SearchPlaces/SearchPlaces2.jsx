@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 import { CarouselCards2 } from "../Carousel";
 import { CardPlace } from "../CardPlace";
 
 import images from "../../images/images.jsx";
-import places from "../../utils/constants/MockPlaces";
+// import places from "../../utils/constants/MockPlaces";
 
 import "./_SearchPlaces.scss";
 
-const { catarata, notfound } = images;
+const { notfound } = images;
 
-const SearchPlaces = () => {
+const SearchPlaces2 = ({ places }) => {
   const [selectedPlaces, setSelectedPlaces] = useState(places);
   const place = useRef("");
   const city = useRef("");
@@ -117,7 +117,7 @@ const SearchPlaces = () => {
             <option value="Facil">Fácil</option>
             <option value="Media">Media</option>
             <option value="Exigente">Exigente</option>
-            <option value="Experto">Experto</option>
+            <option value="Dificil">Difícil</option>
           </select>
           <input
             onClick={handleCleanDifficulty}
@@ -132,12 +132,13 @@ const SearchPlaces = () => {
           body={selectedPlaces.map((place, i) => (
             <CardPlace
               key={i}
+              id={place._id}
               name={place.name}
               difficulty={place.difficulty}
-              walkTime={place.walkTime}
               time={place.time}
+              time_city={place.time_city}
               city={place.city}
-              image={catarata}
+              image={place.photos[0]}
             />
           ))}
         />
@@ -157,4 +158,4 @@ const SearchPlaces = () => {
   );
 };
 
-export default SearchPlaces;
+export default SearchPlaces2;

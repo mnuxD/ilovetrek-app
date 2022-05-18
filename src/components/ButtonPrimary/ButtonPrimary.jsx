@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const ButtonPrimary = ({ label, onClick }) => {
+const ButtonPrimary = ({ label, onClick, disabled }) => {
   return (
     <>
       <Button
@@ -10,6 +10,7 @@ const ButtonPrimary = ({ label, onClick }) => {
           border: "1px solid #9f2dc7",
         }}
         onClick={onClick}
+        disabled={disabled}
       >
         {label}
       </Button>

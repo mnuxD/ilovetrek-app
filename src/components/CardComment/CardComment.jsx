@@ -6,22 +6,22 @@ import images from "../../images/images";
 
 const { man, catarata } = images;
 
-const CardComment = ({ name, lastname, rating, comment, image, photoUser }) => {
+const CardComment = ({ name, rating, comment, image, photo_user }) => {
   return (
     <div className="cardComment">
       <div className="cardComment__containerImage">
         <img
           className="cardComment__containerImage__image"
-          src={catarata}
+          src={image}
           alt="photo__place"
         />
       </div>
       <div className="cardComment__containerText">
         <div className="cardComment__containerText__row">
           <div className="cardComment__containerText__row__item">
-            <Avatar alt={name} src={man} />
+            <Avatar alt={name} src={photo_user} />
             <p className="cardComment__containerText__row__item__name">
-              {name} {lastname}
+              {name}
             </p>
           </div>
           <div className="cardComment__containerText__row__item">

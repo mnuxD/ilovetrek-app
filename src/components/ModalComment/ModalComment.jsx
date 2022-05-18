@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,8 +10,15 @@ import StarIcon from "@mui/icons-material/Star";
 import { ButtonPrimary } from "../ButtonPrimary";
 import { ButtonPrimaryOutlined } from "../ButtonPrimaryOutlined";
 import { Upload, message, Input } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import ImgCrop from "antd-img-crop";
+import { RetweetOutlined, PlusOutlined } from "@ant-design/icons";
+import { AddComment } from "./AddComment";
+import { cloudinary_constant } from "../../utils/constants/cloudinary_constant";
+import {
+  getRatingsByPlaceAsync,
+  createRatingAsync,
+  ratingCreated,
+} from "../../redux/slices/ratingSlice";
+import { getOnePlaceAsync } from "../../redux/slices/placeSlice";
 
 import "./_ModalComment.scss";
 import labels from "../../utils/constants/RatingLabels";
@@ -27,55 +35,62 @@ const style = {
   boxShadow: 24,
 };
 
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-};
-
 const getLabelText = (value) => {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 };
 
-const ModalComment = () => {
+const ModalComment = ({ place_name, place_id, user_id }) => {
+  const dispatch = useDispatch();
+  const isCreated = useSelector(ratingCreated);
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState("");
   const [value, setValue] = useState();
+  const [commentValue, setCommentValue] = useState("");
   const [hover, setHover] = useState(-1);
-  const [rows, setRows] = useState("");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setValue();
+    setImageUrl("");
+    setCommentValue("");
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setValue();
+    setImageUrl("");
+    setCommentValue("");
+    setOpen(false);
+  };
 
-  const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        setImageUrl("www.image.com");
-        setLoading(false);
-      });
-    }
+  const handlePhoto = (e) => {
+    e.preventDefault();
+    window.cloudinary.openUploadWidget(
+      cloudinary_constant("rating-ilovetrekapp", true, false),
+      (err, result) => {
+        if (!err && result?.event === "success") {
+          const { secure_url } = result?.info;
+          setImageUrl(secure_url);
+        }
+      }
+    );
+  };
+
+  const handlePublish = async () => {
+    const newRating = {
+      id_user: user_id,
+      id_place: place_id,
+      photo_url: imageUrl,
+      rating: value,
+      comment: commentValue,
+    };
+    console.log("RATING", newRating);
+    await dispatch(createRatingAsync(newRating));
+    await dispatch(getRatingsByPlaceAsync(place_id));
+    await dispatch(getOnePlaceAsync(place_id));
+    handleClose();
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <AddComment onClick={handleOpen} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -83,34 +98,37 @@ const ModalComment = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} className="boxModal">
-          {/* <ImgCrop rotate> */}
-          <Upload
-            showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
+          <div
+            style={{
+              backgroundImage: `url(${imageUrl})`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              backgroundSize: "cover",
+            }}
           >
-            <div className="boxModal__button">
+            <div className="boxModal__button" onClick={handlePhoto}>
               {imageUrl ? (
-                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+                // <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+                <div className="boxModal__button__content">
+                  <RetweetOutlined className="boxModal__button__content__icon" />
+                  <div className="boxModal__button__content__text">
+                    Cambiar imagen
+                  </div>
+                </div>
               ) : (
                 <div className="boxModal__button__content">
-                  {loading ? (
-                    <LoadingOutlined className="boxModal__button__content__icon" />
-                  ) : (
-                    <PlusOutlined className="boxModal__button__content__icon" />
-                  )}
+                  <PlusOutlined className="boxModal__button__content__icon" />
                   <div className="boxModal__button__content__text">
                     Agregar imagen
                   </div>
                 </div>
               )}
             </div>
-          </Upload>
-          {/* </ImgCrop> */}
+          </div>
+
           <div className="boxModal__body">
             <p className="boxModal__body__title">
-              ¿Como calificarías Catarata Antakallo?
+              ¿Como calificarías {place_name}?
             </p>
             <Box
               sx={{
@@ -124,7 +142,7 @@ const ModalComment = () => {
             >
               <Rating
                 size="large"
-                value={value}
+                // value={value}
                 getLabelText={getLabelText}
                 onChange={(event, newValue) => {
                   setValue(newValue);
@@ -145,14 +163,18 @@ const ModalComment = () => {
               )}
             </Box>
             <TextArea
-              //   value={value}
-              //   onChange={this.onChange}
+              value={commentValue}
+              onChange={(e) => setCommentValue(e.target.value)}
               placeholder="Cuéntanos tu experiencia..."
               autoSize={{ minRows: 3, maxRows: 5 }}
             />
             <div className="boxModal__body__buttonContainer">
               <ButtonPrimaryOutlined label="Cancelar" onClick={handleClose} />
-              <ButtonPrimary label="Enviar" onClick={handleClose} />
+              <ButtonPrimary
+                label="Enviar"
+                onClick={handlePublish}
+                disabled={imageUrl === "" || !value || commentValue === ""}
+              />
             </div>
           </div>
         </Box>

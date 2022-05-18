@@ -3,11 +3,11 @@ import { ButtonPrimary } from "../ButtonPrimary";
 
 import "./_CardPlace.scss";
 
-const CardPlace = ({ name, difficulty, walkTime, time, image, city }) => {
+const CardPlace = ({ name, difficulty, time, time_city, image, city, id }) => {
   const navigate = useNavigate();
 
   const handleViewMore = () => {
-    navigate("/buscar-destino/place");
+    window.location = `/buscar-destino/place/${id}`;
   };
 
   return (
@@ -26,11 +26,13 @@ const CardPlace = ({ name, difficulty, walkTime, time, image, city }) => {
           <span className="card__text__info--data">{difficulty}</span>
         </p>
         <p className="card__text__info">
-          Tiempo de Caminata:{" "}
-          <span className="card__text__info--data">{walkTime}</span>
+          Caminata:{" "}
+          <span className="card__text__info--data">
+            {time[0]} - {time[1]} horas
+          </span>
         </p>
         <p className="card__text__extrainfo">
-          A {time} horas de {city}
+          A {time_city} horas de {city}
         </p>
         <div className="card__text__button">
           <ButtonPrimary label="Ver más" onClick={handleViewMore} />

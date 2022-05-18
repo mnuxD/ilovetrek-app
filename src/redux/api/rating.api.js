@@ -1,0 +1,46 @@
+import API_SERVER from "./api.server.js";
+
+const ENDPOINTS = {
+  CREATE: "/api/rating/create",
+  GET_BY_PLACE: "/api/rating",
+};
+
+export const createRating = (rating) => {
+  const path = `${API_SERVER}${ENDPOINTS.CREATE}`;
+
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      method: "POST",
+      body: JSON.stringify(rating),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(true);
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};
+
+export const getRatingByPlace = (id) => {
+  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const path = `${API_SERVER}${ENDPOINTS.GET_BY_PLACE}/${id}`;
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve({ data });
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};

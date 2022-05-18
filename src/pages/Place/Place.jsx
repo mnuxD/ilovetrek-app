@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Rating from "@mui/material/Rating";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
-import { AddComment } from "../../components/AddComment";
 import { CardComment } from "../../components/CardComment";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -16,9 +15,28 @@ import images from "../../images/images";
 import comments from "../../utils/constants/MockComments";
 import { ModalComment } from "../../components/ModalComment";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getOnePlaceAsync, thisPlace } from "../../redux/slices/placeSlice";
+import {
+  getRatingsByPlaceAsync,
+  ratings,
+} from "../../redux/slices/ratingSlice";
+import { useParams } from "react-router-dom";
+
 const { catarata, man } = images;
 
 const Place = () => {
+  const dispatch = useDispatch();
+  const ID_USER = JSON.parse(localStorage.getItem("infoUserILoveTrekApp"))?._id;
+  const { id } = useParams();
+  const place = useSelector(thisPlace);
+  const thisRatings = useSelector(ratings);
+  console.log("RATINGS", thisRatings);
+  useEffect(async () => {
+    const place_await = await dispatch(getOnePlaceAsync(id));
+    const ratings_await = await dispatch(getRatingsByPlaceAsync(id));
+    console.log("PLACE", place);
+  }, []);
   const color = "#00d23b";
   const [value, setValue] = useState(null);
 
@@ -28,42 +46,39 @@ const Place = () => {
         <div className="place__section1__photoContainer">
           <img
             className="place__section1__photoContainer__image"
-            src={catarata}
+            src={place?.photos[0]}
             alt="photo_place"
           />
         </div>
         <div className="place__section1__infoContainer">
-          <p className="place__section1__infoContainer__title">
-            Catarata Antankallo
-          </p>
+          <p className="place__section1__infoContainer__title">{place?.name}</p>
           <div className="place__section1__infoContainer__info">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p className="place__section1__infoContainer__info__label">
                 Dificultad:{" "}
                 <span className="place__section1__infoContainer__info__label__text">
-                  Media
+                  {place?.difficulty}
                 </span>
               </p>
               <p className="place__section1__infoContainer__info__label">
                 Aforo:{" "}
                 <span className="place__section1__infoContainer__info__label__text">
-                  30
+                  {place?.capacity}
                 </span>
               </p>
             </div>
             <p className="place__section1__infoContainer__info__label">
               Tiempo de Caminata:{" "}
               <span className="place__section1__infoContainer__info__label__text">
-                2-3 horas
+                {place?.time[0]}-{place?.time[1]} horas
               </span>
             </p>
             <p className="place__section1__infoContainer__info__label">
               Ubicación:{" "}
               <span className="place__section1__infoContainer__info__label__text">
-                A 3 horas de Lima
+                A {place?.time_city} horas de {place?.city}
               </span>
             </p>
-            <img src={catarata} alt="mapa" /> {/*Aca va el mapa */}
             <div
               style={{
                 display: "flex",
@@ -74,23 +89,23 @@ const Place = () => {
               <p className="place__section1__infoContainer__info__label">
                 Calificación:{" "}
                 <span className="place__section1__infoContainer__info__label__text">
-                  4.9
+                  {place?.rating}
                 </span>
               </p>
-              <Rating defaultValue={2} precision={0.1} readOnly />
+              <Rating
+                value={parseFloat(place?.rating)}
+                precision={0.1}
+                readOnly
+              />
             </div>
           </div>
         </div>
       </section>
+
       <section className="place__section2">
-        <p className="place__section2__text">
-          La Catarata de Antankallo, forma parte de algunas de las caídas de
-          agua que se pueden ubicar en la región de Lima. Esta caída de agua, se
-          encuentra en el distrito de Matucana, en la provincia de Huarochirí,
-          en el mismo Valle del Rímac.
-        </p>
+        <p className="place__section2__text">{place?.description}</p>
         <p className="place__section2__title">
-          ¿Cuándo visitarás Catarata Antankallo
+          ¿Cuándo visitarás {place?.name}
         </p>
         <div className="place__section2__container">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -151,36 +166,30 @@ const Place = () => {
           </div>
         </div>
         <p className="place__section2__title">¿Cómo llegar?</p>
-        <p className="place__section2__text">
-          Para llegar a la Catarata Antankallo, debemos dirigirnos hacia chosica
-          y tomar el transporte publico hacia la ciudad de Matucana. Una vez
-          ahi, dirígete hacia la entrada de la ruta a una cuadra de la plaza de
-          armas (puedes preguntar una referencia a los lugareños). Deberás pagar
-          una entrada de S./3.00 y empezarás la ruta hacia Antankallo.
-        </p>
+        <p className="place__section2__text">{place?.how_to_get}</p>
         <p className="place__section2__title">Recomendaciones</p>
-        <p className="place__section2__text">
-          Recuerda llevar bloqueador solar, repelente, agua para el camino y
-          alimentos ligeros. También ten en cuenta llevar ropa adecuada ya que
-          es un lugar caluroso, asi como calzado con cocadas ya que el camino es
-          accidentado y empinado por ciertos tramos.
-        </p>
+        <p className="place__section2__text">{place?.tips}</p>
         <p className="place__section2__title">
-          ¿Ya has visitado Catarata Antankallo?
+          ¿Ya has visitado {place?.name}?
         </p>
-        <AddComment />
-        <ModalComment />
+        <ModalComment
+          place_name={place?.name}
+          place_id={place?._id}
+          user_id={ID_USER}
+        />
+
         <div className="place__section2__containerComments">
-          {comments.map((comment, i) => (
+          {thisRatings?.map((rating, i) => (
             <CardComment
               key={i}
-              name={comment.name}
-              lastname={comment.lastname}
-              rating={comment.rating}
-              comment={comment.comment}
-              image={man}
+              name={rating.name_user}
+              rating={rating.rating}
+              comment={rating.comment}
+              photo_user={rating.photo_user}
+              image={rating.photo_url}
             />
           ))}
+          {thisRatings?.length === 0 && <>Hola</>}
         </div>
       </section>
     </div>
