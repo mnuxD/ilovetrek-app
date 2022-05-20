@@ -117,18 +117,18 @@ const Profile = () => {
                 }}
                 onClick={handlePhoto}
               >
-                {USER?.photo_url === "" ? (
-                  <div className="profile__edit__body__imgContainer__img">
-                    <AddIcon fontSize="inherit" style={{ fontSize: "50px" }} />
-                    Añadir Foto
-                  </div>
-                ) : (
+                {USER?.photo_url || photoUserUrl !== "" ? (
                   <div className="profile__edit__body__imgContainer__img">
                     <InsertEmoticonIcon
                       fontSize="inherit"
                       style={{ fontSize: "50px" }}
                     />
                     Cambiar Foto
+                  </div>
+                ) : (
+                  <div className="profile__edit__body__imgContainer__img">
+                    <AddIcon fontSize="inherit" style={{ fontSize: "50px" }} />
+                    Añadir Foto
                   </div>
                 )}
               </div>

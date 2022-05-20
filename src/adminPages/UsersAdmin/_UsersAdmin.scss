@@ -1,0 +1,12 @@
+.places {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__title {
+    color: #00389e;
+    margin-bottom: 40px;
+    padding: 0px 30px;
+    text-align: center;
+  }
+}

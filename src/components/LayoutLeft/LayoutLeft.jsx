@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneUserAsync, toUser } from "../../redux/slices/userSlice";
+import { getOneAdminAsync, toAdmin } from "../../redux/slices/adminSlice";
 
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -27,7 +28,6 @@ const LayoutLeft = ({ body }, props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [url, setUrl] = useState(location.pathname);
-  console.log("url", url);
 
   const { windows } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -37,7 +37,10 @@ const LayoutLeft = ({ body }, props) => {
   //ID
   const ID = JSON.parse(localStorage.getItem("infoUserILoveTrekApp"))?._id;
   //USER
-  const USER = useSelector(toUser);
+
+  const USER_LOGGED = useSelector(toUser) || false;
+  const ADMIN_LOGGED = useSelector(toAdmin) || false;
+  const USER = ROLE === "admin" ? ADMIN_LOGGED : USER_LOGGED;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -47,9 +50,11 @@ const LayoutLeft = ({ body }, props) => {
     await localStorage.removeItem("infoUserILoveTrekApp");
     window.location = "/";
   };
-  console.log("USER", USER);
   useEffect(() => {
-    if (!USER) dispatch(getOneUserAsync(ID));
+    if (!USER) {
+      if (ROLE === "admin") dispatch(getOneAdminAsync(ID));
+      else dispatch(getOneUserAsync(ID));
+    }
   }, []);
 
   const drawer = (
@@ -66,25 +71,42 @@ const LayoutLeft = ({ body }, props) => {
           </p>
         </div>
         <List className="drawer__list">
-          {ButtonsDrawer.map(
-            (item, i) =>
-              (item.user === ROLE || item.user === "both") && (
-                <ListItem
-                  key={i}
-                  button
-                  className="drawer__list__item"
-                  onClick={() => navigate(item.url)}
-                  style={{
-                    backgroundColor: "#355790",
-                    marginBottom: "5px",
-                  }}
-                >
-                  <ListItemIcon className="drawer__list__item__iconContainer">
-                    {item.icon}
-                  </ListItemIcon>
-                  <p className="drawer__list__item__text">{item.text}</p>
-                </ListItem>
-              )
+          {ButtonsDrawer.map((item, i) =>
+            ROLE !== "admin"
+              ? (item.user === ROLE || item.user === "both") && (
+                  <ListItem
+                    key={i}
+                    button
+                    className="drawer__list__item"
+                    onClick={() => navigate(item.url)}
+                    style={{
+                      backgroundColor: "#355790",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    <ListItemIcon className="drawer__list__item__iconContainer">
+                      {item.icon}
+                    </ListItemIcon>
+                    <p className="drawer__list__item__text">{item.text}</p>
+                  </ListItem>
+                )
+              : item.admin && (
+                  <ListItem
+                    key={i}
+                    button
+                    className="drawer__list__item"
+                    onClick={() => navigate(item.url)}
+                    style={{
+                      backgroundColor: "#355790",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    <ListItemIcon className="drawer__list__item__iconContainer">
+                      {item.icon}
+                    </ListItemIcon>
+                    <p className="drawer__list__item__text">{item.text}</p>
+                  </ListItem>
+                )
           )}
           <ListItem
             button
@@ -117,7 +139,8 @@ const LayoutLeft = ({ body }, props) => {
       {url === "/" ||
       url === "/ingresar" ||
       url === "/registro" ||
-      url === "/registro-exitoso" ? (
+      url === "/registro-exitoso" ||
+      url === "/admin/ingresar" ? (
         <></>
       ) : (
         <Box
@@ -131,9 +154,9 @@ const LayoutLeft = ({ body }, props) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            // ModalProps={{
-            //   keepMounted: true, // Better open performance on mobile.
-            // }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
             sx={{
               display: { xs: "block", sm: "none" },
               "& .MuiDrawer-paper": {
@@ -173,7 +196,8 @@ const LayoutLeft = ({ body }, props) => {
         {url === "/" ||
         url === "/ingresar" ||
         url === "/registro" ||
-        url === "/registro-exitoso" ? (
+        url === "/registro-exitoso" ||
+        url === "/admin/ingresar" ? (
           <></>
         ) : (
           <IconButton

@@ -7,7 +7,7 @@ const CardPlace = ({ name, difficulty, time, time_city, image, city, id }) => {
   const navigate = useNavigate();
 
   const handleViewMore = () => {
-    window.location = `/buscar-destino/place/${id}`;
+    window.location = `/buscar-destino/destino/${id}`;
   };
 
   return (

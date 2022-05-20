@@ -14,7 +14,6 @@ const SearchPlace = () => {
 
   useEffect(async () => {
     const places_await = await dispatch(getAllPlacesAsync());
-    console.log(places);
   }, []);
   return (
     <div className="searchPlace">

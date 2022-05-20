@@ -1,39 +1,38 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { loginUserAsync, alertLogin } from "../../redux/slices/userSlice";
+import { loginAdminAsync, alertLogin } from "../../redux/slices/adminSlice";
 import { AlertError } from "../../components/Alert/index.js";
-import { Form, Input, Button, Divider } from "antd";
+import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import GoogleLogin from "react-google-login";
 
 import images from "../../images/images";
 
-import "./_Login.scss";
+import "./_LoginAdmin.scss";
 
 const { logo } = images;
 
-const Login = () => {
+const LoginAdmin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cont, setCont] = useState(0);
 
-  // Status to know if the user is logged in
-  const stateLoggedUser = JSON.parse(
+  // Status to know if the admin is logged in
+  const stateLoggedAdmin = JSON.parse(
     localStorage.getItem("infoUserILoveTrekApp")
   )?.token;
 
   const alertOnLogin = useSelector(alertLogin) ?? false;
 
   const onFinish = async (values) => {
-    await dispatch(loginUserAsync(values));
+    await dispatch(loginAdminAsync(values));
     setCont(cont + 1);
   };
 
   useEffect(() => {
-    if (stateLoggedUser) {
+    if (stateLoggedAdmin) {
       console.log("Hola");
-      window.location = "/buscar-destino";
+      window.location = "/admin/usuarios";
     }
   }, [cont]);
 
@@ -96,25 +95,7 @@ const Login = () => {
             </div>
           </Form.Item>
         </Form>
-        <div className="login__container__containerLink">
-          <span
-            onClick={() => navigate("/registro")}
-            className="login__container__containerLink__link"
-          >
-            ¿Aun no tienes una cuenta? Regístrate.
-          </span>
-        </div>
 
-        <Divider plain>o</Divider>
-        <div className="login__container__google">
-          <GoogleLogin
-            // clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-            buttonText="Iniciar sesión con Google"
-            // onSuccess={responseSuccessGoogle}
-            // onFailure={responseFailureGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
-        </div>
         <div className="login__container__logoContainer">
           <img
             onClick={() => navigate("/")}
@@ -132,4 +113,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginAdmin;

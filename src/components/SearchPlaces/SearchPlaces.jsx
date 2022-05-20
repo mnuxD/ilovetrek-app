@@ -122,18 +122,21 @@ const SearchPlaces = ({ places }) => {
       </div>
       {selectedPlaces?.length !== 0 ? (
         <CarouselCards
-          body={selectedPlaces?.map((place, i) => (
-            <CardPlace
-              key={i}
-              id={place._id}
-              name={place.name}
-              difficulty={place.difficulty}
-              time={place.time}
-              time_city={place.time_city}
-              city={place.city}
-              image={place.photos[0]}
-            />
-          ))}
+          body={selectedPlaces?.map(
+            (place, i) =>
+              place.verified && (
+                <CardPlace
+                  key={i}
+                  id={place._id}
+                  name={place.name}
+                  difficulty={place.difficulty}
+                  time={place.time}
+                  time_city={place.time_city}
+                  city={place.city}
+                  image={place.photos[0]}
+                />
+              )
+          )}
         />
       ) : (
         <div className="notFound">

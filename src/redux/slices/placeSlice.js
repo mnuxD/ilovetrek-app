@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { place } from "../api/index";
 
-const { createPlace, getOnePlace, getAllPlaces } = place;
+const {
+  createPlace,
+  getOnePlace,
+  getAllPlaces,
+  changeVerified,
+  updatePlace,
+  deletePlace,
+} = place;
 
 const initialState = {};
 
@@ -29,21 +36,34 @@ export const getAllPlacesAsync = createAsyncThunk(
   }
 );
 
-// export const updateUser1Async = createAsyncThunk(
-//   "user/update1",
-//   async (user) => {
-//     const response = await updateUser1(user);
-//     return response;
-//   }
-// );
+export const changeVerifiedAsync = createAsyncThunk(
+  "place/changeVerified",
+  async (id) => {
+    const response = await changeVerified(id);
+    return response;
+  }
+);
+
+export const updatePlaceAsync = createAsyncThunk(
+  "place/update",
+  async (place) => {
+    const response = await updatePlace(place);
+    return response;
+  }
+);
+
+export const deletePlaceAsync = createAsyncThunk("place/delete", async (id) => {
+  const response = await deletePlace(id);
+  return response;
+});
 
 export const placeSlice = createSlice({
   name: "place",
   initialState,
   reducers: {
-    // placeToEdit: (state, { payload: newPlaceData }) => {
-    //   state.place = { ...state.place, ...newPlaceData };
-    // },
+    placeToEdit: (state, { payload: newPlaceData }) => {
+      state.place = { ...state.place, ...newPlaceData };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -63,11 +83,21 @@ export const placeSlice = createSlice({
       })
       .addCase(createPlaceAsync.fulfilled, (state, action) => {
         state.created = true;
+      })
+      .addCase(changeVerifiedAsync.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(changeVerifiedAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.place = action.payload;
+      })
+      .addCase(deletePlaceAsync.fulfilled, (state, action) => {
+        state.deleted = action.payload;
       });
   },
 });
 
-// export const { placeToEdit } = userSlice.actions;
+export const { placeToEdit } = placeSlice.actions;
 
 export const thisPlace = (state) => state.place.place;
 export const allPlaces = (state) => state.place.allPlaces;

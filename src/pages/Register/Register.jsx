@@ -6,8 +6,9 @@ import GoogleLogin from "react-google-login";
 import images from "../../images/images";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
 import "./_Register.scss";
-import { useDispatch } from "react-redux";
-import { registerUserAsync } from "../../redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUserAsync, alertRegister } from "../../redux/slices/userSlice";
+import { AlertError } from "../../components/Alert";
 import { useState } from "react";
 
 const { logo } = images;
@@ -48,6 +49,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [isCreated, setIsCreated] = useState(false);
+  const alertOnRegister = useSelector(alertRegister);
 
   const onFinish = async (values) => {
     // console.log("Received values of form: ", values);
@@ -119,6 +121,18 @@ const Register = () => {
                     required: true,
                     message: "Por favor ingrese su contraseña.",
                   },
+                  () => ({
+                    validator(_, value) {
+                      if (value.length >= 8) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error(
+                          "La contraseña debe tener almenos 8 caracteres."
+                        )
+                      );
+                    },
+                  }),
                 ]}
                 hasFeedback
               >
@@ -140,7 +154,6 @@ const Register = () => {
                       if (!value || getFieldValue("password") === value) {
                         return Promise.resolve();
                       }
-
                       return Promise.reject(
                         new Error("Las contraseñas ingresadas no coinciden.")
                       );
@@ -219,6 +232,10 @@ const Register = () => {
           />
         </div>
       </div>
+      <AlertError
+        alertOn={alertOnRegister}
+        message="Este correo ya está en uso."
+      />
     </div>
   );
 };

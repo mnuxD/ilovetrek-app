@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { user } from "../api/index";
 
-const { loginUser, getOneUser, registerUser, updateUser1, updateUser2 } = user;
+const {
+  loginUser,
+  getOneUser,
+  getAllRequests,
+  registerUser,
+  updateUser1,
+  updateUser2,
+} = user;
 
 const initialState = {};
 
@@ -22,6 +29,14 @@ export const getOneUserAsync = createAsyncThunk(
   "user/getOneUser",
   async (id) => {
     const response = await getOneUser(id);
+    return response.data;
+  }
+);
+
+export const getAllRequestsAsync = createAsyncThunk(
+  "user/requests",
+  async () => {
+    const response = await getAllRequests();
     return response.data;
   }
 );
@@ -59,13 +74,21 @@ export const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
       })
+      .addCase(getAllRequestsAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllRequestsAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.requests = action.payload;
+      })
       .addCase(loginUserAsync.pending, (state, action) => {
-        state.alertUser = false;
+        state.alertLogin = false;
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
-        state.alertUser = true;
+        state.alertLogin = true;
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
+        state.alertLogin = false;
         state.userInfo = action.payload; // state.userInfo
         state.logguedUser = true;
         localStorage.setItem(
@@ -74,12 +97,13 @@ export const userSlice = createSlice({
         );
       })
       .addCase(registerUserAsync.pending, (state, action) => {
-        state.alertUserRegister = false;
+        state.alertRegister = false;
       })
       .addCase(registerUserAsync.rejected, (state, action) => {
-        state.alertUserRegister = true;
+        state.alertRegister = true;
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
+        state.alertRegister = false;
         state.created = true;
       });
   },
@@ -88,9 +112,10 @@ export const userSlice = createSlice({
 export const { userToEdit } = userSlice.actions;
 
 export const selectUserLoggued = (state) => state.user.logguedUser;
-export const alertUser = (state) => state.user.alertUser;
-export const alertUserRegister = (state) => state.user.alertUserRegister;
+export const alertLogin = (state) => state.user.alertLogin;
+export const alertRegister = (state) => state.user.alertRegister;
 export const toUser = (state) => state.user.user;
+export const toRequests = (state) => state.user.requests;
 export const userCreated = (state) => state.user.created;
 
 export default userSlice.reducer;

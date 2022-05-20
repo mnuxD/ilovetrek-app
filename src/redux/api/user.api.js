@@ -4,6 +4,7 @@ const ENDPOINTS = {
   REGISTER: "/api/register",
   LOGIN: "/api/login",
   GET_ONE_USER: "/api/user",
+  GET_ALL_REQUESTS: "/api/users/requests",
   UPDATE_1: "/api/user/update1",
   UPDATE_2: "/api/user/update2",
 };
@@ -52,6 +53,25 @@ export const loginUser = (user) => {
 export const getOneUser = (id) => {
   //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_ONE_USER}/${id}`;
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve({ data });
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};
+
+export const getAllRequests = () => {
+  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const path = `${API_SERVER}${ENDPOINTS.GET_ALL_REQUESTS}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
       // headers: {

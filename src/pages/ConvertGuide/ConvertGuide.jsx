@@ -22,7 +22,7 @@ const ConvertGuide = () => {
     e.preventDefault();
     const { elements } = e.target;
     const guideProfile = {
-      status: "send",
+      status: "Enviado",
       instagram: elements[0].value,
       facebook: elements[1].value,
       linkedin: elements[2].value,

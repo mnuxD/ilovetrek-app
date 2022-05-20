@@ -1,40 +1,28 @@
-import "./_CreatePlace.scss";
-import { ButtonPrimaryForm } from "../../components/ButtonPrimaryForm";
-import { ButtonPrimary } from "../../components/ButtonPrimary";
-import { Form, Input, Select } from "antd";
-import AddIcon from "@mui/icons-material/Add";
-
-import images from "../../images/images";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import "./_UpdatePlace.scss";
+import { ButtonPrimaryForm } from "../ButtonPrimaryForm";
+import { ButtonPrimary } from "../ButtonPrimary";
+import { Input, Select } from "antd";
+import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { cloudinary_constant } from "../../utils/constants/cloudinary_constant";
-import { createPlaceAsync, placeCreated } from "../../redux/slices/placeSlice";
+import { updatePlaceAsync, placeToEdit } from "../../redux/slices/placeSlice";
 
-const { catarata } = images;
 const { TextArea } = Input;
 const { Option } = Select;
 
-const CreatePlace = () => {
+const UpdatePlace = ({ place, id, onClickChangeUpdate }) => {
   const dispatch = useDispatch();
-  const isCreated = useSelector(placeCreated);
-  const ID = JSON.parse(localStorage.getItem("infoUserILoveTrekApp"))?._id;
-  const ROLE = JSON.parse(localStorage.getItem("infoUserILoveTrekApp"))?.role;
   const [difficulty, setDifficulty] = useState();
   const [photosPlaceUrl, setPhotosPlaceUrl] = useState([]);
-  const [created, setCreated] = useState(false);
 
-  useEffect(() => {
-    if (isCreated) setCreated(true);
-  }, [isCreated]);
-
-  const handleCreate = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    const newPlace = {
-      id_user: ID,
+    const placeData = {
       name: e.target[0].value,
-      photos: photosPlaceUrl,
-      difficulty: difficulty,
+      photos: photosPlaceUrl.length === 0 ? place.photos : photosPlaceUrl,
+      difficulty: !difficulty ? place.difficulty : difficulty,
       capacity: e.target[2].value,
       time: [e.target[3].value, e.target[4].value],
       time_city: e.target[5].value,
@@ -43,8 +31,9 @@ const CreatePlace = () => {
       how_to_get: e.target[8].value,
       tips: e.target[9].value,
     };
-    await dispatch(createPlaceAsync(newPlace));
-    // setCreated(true);
+    await dispatch(placeToEdit(placeData));
+    await dispatch(updatePlaceAsync({ id: id, ...placeData }));
+    onClickChangeUpdate();
   };
 
   const handlePhotos = (e) => {
@@ -64,39 +53,41 @@ const CreatePlace = () => {
 
   return (
     <>
-      {!created ? (
-        <form onSubmit={handleCreate} className="createPlace">
+      {place && (
+        <form onSubmit={handleUpdate} className="createPlace">
           <h1 className="createPlace__title">Crear un Destino</h1>
           <section className="createPlace__section1">
-            {photosPlaceUrl[0] ? (
-              <div
-                onClick={handlePhotos}
-                className="createPlace__section1__photoContainer"
-                style={{
-                  backgroundImage: `url(${photosPlaceUrl[0]})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center center",
-                }}
-              >
-                <AddIcon fontSize="inherit" />
-                Añadir Fotos
-              </div>
-            ) : (
+            <div
+              style={{
+                backgroundImage: `url(${
+                  photosPlaceUrl.length > 0
+                    ? photosPlaceUrl[0]
+                    : place?.photos[0]
+                })`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+              }}
+            >
               <div
                 onClick={handlePhotos}
                 className="createPlace__section1__photoContainer"
               >
-                <AddIcon fontSize="inherit" />
-                Añadir Fotos
+                <FlipCameraIosIcon fontSize="inherit" />
+                Cambiar Fotos
               </div>
-            )}
+            </div>
 
             <div className="createPlace__section1__infoContainer">
               <Input
+                defaultValue={place?.name}
                 required
                 placeholder="Nombre del lugar"
-                style={{ width: "100%", marginBottom: "10px", padding: "5px" }}
+                style={{
+                  width: "100%",
+                  marginBottom: "10px",
+                  padding: "5px",
+                }}
               />
               <div className="createPlace__section1__infoContainer__info">
                 <div
@@ -109,6 +100,7 @@ const CreatePlace = () => {
                       style={{ width: "100px" }}
                       placeholder=""
                       onChange={(e) => setDifficulty(e)}
+                      defaultValue={place?.difficulty}
                     >
                       <Option value="Fácil">Fácil</Option>
                       <Option value="Media">Media</Option>
@@ -122,6 +114,7 @@ const CreatePlace = () => {
                       required
                       style={{ width: "50px", padding: "5px" }}
                       type="number"
+                      defaultValue={place?.capacity}
                     />
                   </div>
                 </div>
@@ -132,12 +125,14 @@ const CreatePlace = () => {
                       required
                       style={{ width: "35px", padding: "5px" }}
                       type="number"
+                      defaultValue={place?.time[0]}
                     />
                     -
                     <Input
                       required
                       style={{ width: "35px", padding: "5px" }}
                       type="number"
+                      defaultValue={place?.time[1]}
                     />{" "}
                     horas
                   </span>
@@ -150,12 +145,14 @@ const CreatePlace = () => {
                       required
                       style={{ width: "35px", padding: "5px" }}
                       type="number"
+                      defaultValue={place?.time_city}
                     />{" "}
                     horas de{" "}
                     <Input
                       required
                       style={{ width: "100px", padding: "5px" }}
                       placeholder="Ciudad"
+                      defaultValue={place?.city}
                     />
                   </span>
                 </div>
@@ -164,60 +161,38 @@ const CreatePlace = () => {
           </section>
           <section className="createPlace__section2">
             <TextArea
-              //   value={value}
-              //   onChange={this.onChange}
               required
               placeholder="Breve descripción del lugar..."
               autoSize={{ minRows: 3, maxRows: 5 }}
+              defaultValue={place?.description}
             />
 
             <p className="createPlace__section2__title">¿Cómo llegar?</p>
             <TextArea
-              //   value={value}
-              //   onChange={this.onChange}
               required
               placeholder="Información detallada de como llegar al lugar..."
               autoSize={{ minRows: 5, maxRows: 6 }}
+              defaultValue={place?.how_to_get}
             />
             <p className="createPlace__section2__title">Recomendaciones</p>
             <TextArea
-              //   value={value}
-              //   onChange={this.onChange}
               required
               placeholder="Describe las recomendaciones que deben seguir los visitantes para tener una mejor experiencia..."
               autoSize={{ minRows: 5, maxRows: 6 }}
+              defaultValue={place?.tips}
             />
           </section>
           <div style={{ marginTop: "20px" }}>
-            <ButtonPrimaryForm
-              label="Finalizar"
-              disabled={photosPlaceUrl.length === 0 || !difficulty}
+            <ButtonPrimaryForm label="Guardar cambios" />{" "}
+            <ButtonPrimary
+              label="Cancelar Cambios"
+              onClick={() => onClickChangeUpdate()}
             />
           </div>
         </form>
-      ) : (
-        <div className="created">
-          <h1 className="created__title">
-            Su destino ha sido creado con éxito! Un administrador verificará los
-            datos registrados para su posterior publicación.
-          </h1>
-          <div className="created__buttons">
-            {ROLE !== "admin" && (
-              <ButtonPrimary
-                label="Buscar destinos"
-                onClick={() => (window.location = "/buscar-destino")}
-              />
-            )}
-
-            <ButtonPrimary
-              label="Registrar otro lugar"
-              onClick={() => (window.location = "/crear-destino")}
-            />
-          </div>
-        </div>
       )}
     </>
   );
 };
 
-export default CreatePlace;
+export default UpdatePlace;
