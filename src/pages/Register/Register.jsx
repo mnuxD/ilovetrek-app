@@ -76,8 +76,7 @@ const Register = () => {
           <>
             <h1 className="register__container__title">Registro Exitoso</h1>
             <p className="register__container__text">
-              Su cuenta ha sido registrada con éxito. Se le ha enviado un correo
-              con la confirmación.
+              Su cuenta ha sido registrada con éxito.
             </p>
             <div className="register__container__button">
               <ButtonPrimary
@@ -208,17 +207,6 @@ const Register = () => {
               >
                 ¿Ya tienes una cuenta? Ingresa aquí.
               </span>
-            </div>
-
-            <Divider plain>o</Divider>
-            <div className="register__container__google">
-              <GoogleLogin
-                // clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-                buttonText="Regístrate con Google"
-                // onSuccess={responseSuccessGoogle}
-                // onFailure={responseFailureGoogle}
-                cookiePolicy={"single_host_origin"}
-              />
             </div>
           </>
         )}

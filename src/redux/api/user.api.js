@@ -51,7 +51,7 @@ export const loginUser = (user) => {
 };
 
 export const getOneUser = (id) => {
-  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  // const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_ONE_USER}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {

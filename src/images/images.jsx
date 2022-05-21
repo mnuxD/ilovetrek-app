@@ -1,4 +1,5 @@
 import logo from "./logo.png";
+import logoblanco from "./logoblanco.png";
 import fb from "./fb.png";
 import ig from "./insta.png";
 import tiktok from "./tiktok.png";
@@ -11,6 +12,7 @@ import woman from "./woman.jpg";
 
 const images = {
   logo: logo,
+  logoblanco: logoblanco,
   fb: fb,
   ig: ig,
   tiktok: tiktok,

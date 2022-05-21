@@ -11,7 +11,7 @@ import { getAllPlacesAsync, allPlaces } from "../../redux/slices/placeSlice";
 
 import "./_LandingPage.scss";
 
-const { logo, ig, fb, tiktok, turist, guide } = images;
+const { logoblanco, ig, fb, tiktok, turist, guide } = images;
 const LandingPage = () => {
   const dispatch = useDispatch();
   const places = useSelector(allPlaces);
@@ -31,7 +31,7 @@ const LandingPage = () => {
         <div className="section1__containerLogo">
           <img
             className="section1__containerLogo__logo"
-            src={logo}
+            src={logoblanco}
             alt="logo_ilovetrek"
           />
         </div>
@@ -91,7 +91,10 @@ const LandingPage = () => {
             Se parte de nuestra comunidad de guías y comparte nuevos destinos
           </p>
           <div className="section3__text__button">
-            <ButtonSecondary label="Unirme" />
+            <ButtonSecondary
+              label="Unirme"
+              onClick={() => (window.location = "/convertirme-en-guia")}
+            />
           </div>
         </div>
 

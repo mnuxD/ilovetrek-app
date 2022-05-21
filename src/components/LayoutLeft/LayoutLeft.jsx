@@ -19,7 +19,7 @@ import images from "../../images/images";
 import "./_LayoutLeft.scss";
 import ButtonsDrawer from "../../utils/constants/ButtonsDrawer";
 
-const { logo } = images;
+const { logoblanco } = images;
 
 const drawerWidth = 240;
 
@@ -51,7 +51,7 @@ const LayoutLeft = ({ body }, props) => {
     window.location = "/";
   };
   useEffect(() => {
-    if (!USER) {
+    if (!USER && ROLE) {
       if (ROLE === "admin") dispatch(getOneAdminAsync(ID));
       else dispatch(getOneUserAsync(ID));
     }
@@ -126,7 +126,7 @@ const LayoutLeft = ({ body }, props) => {
       </div>
       <div className="drawer__footer">
         <a href="/">
-          <img className="drawer__footer__logo" src={logo} alt="logo" />
+          <img className="drawer__footer__logo" src={logoblanco} alt="logo" />
         </a>
       </div>
     </div>
@@ -140,7 +140,9 @@ const LayoutLeft = ({ body }, props) => {
       url === "/ingresar" ||
       url === "/registro" ||
       url === "/registro-exitoso" ||
-      url === "/admin/ingresar" ? (
+      url === "/admin/ingresar" ||
+      url === "/pagina-no-encontrada" ||
+      !ROLE ? (
         <></>
       ) : (
         <Box
@@ -197,7 +199,9 @@ const LayoutLeft = ({ body }, props) => {
         url === "/ingresar" ||
         url === "/registro" ||
         url === "/registro-exitoso" ||
-        url === "/admin/ingresar" ? (
+        url === "/admin/ingresar" ||
+        url === "/pagina-no-encontrada" ||
+        !ROLE ? (
           <></>
         ) : (
           <IconButton

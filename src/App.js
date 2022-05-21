@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-
 import { LandingPage } from "./pages/LandingPage";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
@@ -9,12 +8,17 @@ import { Profile } from "./pages/Profile";
 import { ConvertGuide } from "./pages/ConvertGuide";
 import { CreatePlace } from "./pages/CreatePlace";
 import { LayoutLeft } from "./components/LayoutLeft";
-
-// Admin
 import { LoginAdmin } from "./adminPages/LoginAdmin";
 import { PlacesAdmin } from "./adminPages/PlacesAdmin";
 import { UsersAdmin } from "./adminPages/UsersAdmin";
 import { ViewUser } from "./adminPages/ViewUser";
+import { NotFound } from "./pages/NotFound";
+import {
+  PrivateRouteAdmin,
+  PrivateRouteBoth,
+  PrivateRouteUser,
+  PrivateRouteGuide,
+} from "./components/PrivateRoutes/PrivateRoutes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -27,18 +31,88 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/ingresar" element={<Login />} />
             <Route path="/registro" element={<Register />} />
-            <Route path="/buscar-destino" element={<SearchPlace />} />
-            <Route path="/buscar-destino/destino/:id" element={<Place />} />
-            <Route path="/perfil" element={<Profile />} />
-            <Route path="/convertirme-en-guia" element={<ConvertGuide />} />
-            <Route path="/crear-destino" element={<CreatePlace />} />
+            <Route path="/admin/ingresar" element={<LoginAdmin />} />
+            <Route path="/pagina-no-encontrada" element={<NotFound />} />
+
+            {/* User and Guide Routes */}
+            <Route
+              path="/buscar-destino"
+              element={
+                <PrivateRouteBoth routeAux={"/ingresar"}>
+                  <SearchPlace />
+                </PrivateRouteBoth>
+              }
+            />
+            <Route
+              path="/buscar-destino/destino/:id"
+              element={
+                <PrivateRouteBoth routeAux={"/ingresar"}>
+                  <Place />
+                </PrivateRouteBoth>
+              }
+            />
+            <Route
+              path="/perfil"
+              element={
+                <PrivateRouteBoth routeAux={"/ingresar"}>
+                  <Profile />
+                </PrivateRouteBoth>
+              }
+            />
+
+            {/* User Routes */}
+            <Route
+              path="/convertirme-en-guia"
+              element={
+                <PrivateRouteUser routeAux={"/ingresar"}>
+                  <ConvertGuide />
+                </PrivateRouteUser>
+              }
+            />
+
+            {/* Guide Routes */}
+            <Route
+              path="/crear-destino"
+              element={
+                <PrivateRouteUser routeAux={"/ingresar"}>
+                  <CreatePlace />
+                </PrivateRouteUser>
+              }
+            />
 
             {/* Admin Routes */}
-            <Route path="/admin/ingresar" element={<LoginAdmin />} />
-            <Route path="/admin/usuarios" element={<UsersAdmin />} />
-            <Route path="/admin/usuario/:id" element={<ViewUser />} />
-            <Route path="/admin/destinos" element={<PlacesAdmin />} />
-            <Route path="/admin/destinos/:id" element={<Place />} />
+            <Route
+              path="/admin/usuarios"
+              element={
+                <PrivateRouteAdmin routeAux={"/ingresar"}>
+                  <UsersAdmin />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/admin/usuario/:id"
+              element={
+                <PrivateRouteAdmin routeAux={"/ingresar"}>
+                  <ViewUser />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/admin/destinos"
+              element={
+                <PrivateRouteAdmin routeAux={"/ingresar"}>
+                  <PlacesAdmin />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/admin/destinos/:id"
+              element={
+                <PrivateRouteAdmin routeAux={"/ingresar"}>
+                  <Place />
+                </PrivateRouteAdmin>
+              }
+            />
           </Routes>
         }
       />

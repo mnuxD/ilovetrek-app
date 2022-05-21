@@ -5,7 +5,6 @@ import { loginUserAsync, alertLogin } from "../../redux/slices/userSlice";
 import { AlertError } from "../../components/Alert/index.js";
 import { Form, Input, Button, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import GoogleLogin from "react-google-login";
 
 import images from "../../images/images";
 
@@ -106,16 +105,6 @@ const Login = () => {
           </span>
         </div>
 
-        <Divider plain>o</Divider>
-        <div className="login__container__google">
-          <GoogleLogin
-            // clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-            buttonText="Iniciar sesión con Google"
-            // onSuccess={responseSuccessGoogle}
-            // onFailure={responseFailureGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
-        </div>
         <div className="login__container__logoContainer">
           <img
             onClick={() => navigate("/")}

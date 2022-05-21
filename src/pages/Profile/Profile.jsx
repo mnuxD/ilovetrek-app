@@ -237,7 +237,7 @@ const Profile = () => {
           </div>
         )}
 
-        <h3 className="profile__subtitle">Visitados recientemente</h3>
+        {/* <h3 className="profile__subtitle">Visitados recientemente</h3>
         <div className="profile__container">
           <CarouselCards2
             body={places.map((place, i) => (
@@ -252,7 +252,7 @@ const Profile = () => {
               />
             ))}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
