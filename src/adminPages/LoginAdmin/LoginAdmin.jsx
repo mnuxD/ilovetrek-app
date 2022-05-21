@@ -16,6 +16,7 @@ const LoginAdmin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cont, setCont] = useState(0);
+  const ROLE = JSON.parse(localStorage.getItem("infoUserILoveTrekApp"))?.role;
 
   // Status to know if the admin is logged in
   const stateLoggedAdmin = JSON.parse(
@@ -31,8 +32,8 @@ const LoginAdmin = () => {
 
   useEffect(() => {
     if (stateLoggedAdmin) {
-      console.log("Hola");
-      window.location = "/admin/usuarios";
+      if (ROLE === "admin") window.location = "/admin/usuarios";
+      else window.location = "/buscar-destino";
     }
   }, [cont]);
 

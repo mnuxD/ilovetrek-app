@@ -1,15 +1,27 @@
 import Avatar from "@mui/material/Avatar";
 import Rating from "@mui/material/Rating";
+import { DeleteComment } from "./DeleteComment";
 
 import "./_CardComment.scss";
-import images from "../../images/images";
 
-const { man, catarata } = images;
-
-const CardComment = ({ name, rating, comment, image, photo_user }) => {
+const CardComment = ({
+  _id,
+  name,
+  rating,
+  comment,
+  image,
+  photo_user,
+  ROLE,
+  id_user,
+  this_user_id,
+  id_place,
+}) => {
   return (
     <div className="cardComment">
       <div className="cardComment__containerImage">
+        {(id_user === this_user_id || ROLE === "admin") && (
+          <DeleteComment idRating={_id} idPlace={id_place} />
+        )}
         <img
           className="cardComment__containerImage__image"
           src={image}

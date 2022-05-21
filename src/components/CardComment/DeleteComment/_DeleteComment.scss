@@ -1,0 +1,13 @@
+.containerDelete {
+  //   background-color: red;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  left: 180px;
+  border-radius: 20px;
+  width: 40px;
+  border: 1px solid rgb(199, 199, 199);
+  background-color: rgba(255, 255, 255, 0.8);
+  &__buttonDelete {
+  }
+}

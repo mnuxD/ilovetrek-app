@@ -3,6 +3,7 @@ import API_SERVER from "./api.server.js";
 const ENDPOINTS = {
   CREATE: "/api/rating/create",
   GET_BY_PLACE: "/api/rating",
+  DELETE: "/api/rating/delete",
 };
 
 export const createRating = (rating) => {
@@ -38,6 +39,26 @@ export const getRatingByPlace = (id) => {
       .then((response) => response.json())
       .then((data) => {
         resolve({ data });
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};
+
+export const deleteRating = (id) => {
+  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const path = `${API_SERVER}${ENDPOINTS.DELETE}/${id}`;
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      method: "DELETE",
+      headers: {
+        // Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(true);
       })
       .catch((err) => {
         reject({ error: err });

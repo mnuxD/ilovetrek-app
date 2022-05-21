@@ -8,13 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { ModalDeletePlace } from "../../components/ModalDeletePlace";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getAllPlacesAsync,
-  deletePlaceAsync,
-  allPlaces,
-} from "../../redux/slices/placeSlice";
-import { useEffect } from "react";
+import { getAllPlacesAsync, allPlaces } from "../../redux/slices/placeSlice";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -77,14 +74,10 @@ const PlacesAdmin = () => {
                     Revisar
                   </a>{" "}
                   |{" "}
-                  <a
-                    onClick={async () =>
-                      await dispatch(deletePlaceAsync(place._id))
-                    }
-                    href=""
-                  >
-                    Eliminar
-                  </a>
+                  <ModalDeletePlace
+                    idPlace={place._id}
+                    namePlace={place.name}
+                  />
                 </StyledTableCell>
               </StyledTableRow>
             ))}

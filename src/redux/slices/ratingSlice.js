@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { rating } from "../api/index";
 
-const { createRating, getRatingByPlace } = rating;
+const { createRating, getRatingByPlace, deleteRating } = rating;
 
 const initialState = {};
 
@@ -21,22 +21,18 @@ export const getRatingsByPlaceAsync = createAsyncThunk(
   }
 );
 
-// export const updateUser1Async = createAsyncThunk(
-//   "user/update1",
-//   async (user) => {
-//     const response = await updateUser1(user);
-//     return response;
-//   }
-// );
+export const deleteRatingAsync = createAsyncThunk(
+  "rating/delete",
+  async (id) => {
+    const response = await deleteRating(id);
+    return response;
+  }
+);
 
 export const ratingSlice = createSlice({
   name: "rating",
   initialState,
-  reducers: {
-    // placeToEdit: (state, { payload: newPlaceData }) => {
-    //   state.place = { ...state.place, ...newPlaceData };
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getRatingsByPlaceAsync.pending, (state) => {
@@ -48,6 +44,9 @@ export const ratingSlice = createSlice({
       })
       .addCase(createRatingAsync.fulfilled, (state, action) => {
         state.created = true;
+      })
+      .addCase(deleteRatingAsync.fulfilled, (state, action) => {
+        state.deleted = action.payload;
       });
   },
 });

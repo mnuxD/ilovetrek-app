@@ -208,11 +208,16 @@ const Place = () => {
               {thisRatings?.map((rating, i) => (
                 <CardComment
                   key={i}
+                  ROLE={ROLE}
+                  _id={rating._id}
+                  id_user={rating.id_user}
                   name={rating.name_user}
                   rating={rating.rating}
                   comment={rating.comment}
                   photo_user={rating.photo_user}
                   image={rating.photo_url}
+                  this_user_id={ID_USER}
+                  id_place={id}
                 />
               ))}
               {/* {thisRatings?.length === 0 && (
