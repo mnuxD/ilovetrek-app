@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Carousel, { slidesToShowPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 

@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input } from "antd";
-
 import { ButtonPrimary } from "../../components/ButtonPrimary";
-
 import PersonIcon from "@mui/icons-material/Person";
-
 import "./_ViewUser.scss";
-
 import {
   getOneUserAsync,
   toUser,

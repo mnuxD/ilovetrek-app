@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { ButtonSecondaryPurple } from "../../components/ButtonSecondaryPurple";
 import { ButtonSecondary } from "../../components/ButtonSecondary";
 import { SearchPlaces } from "../../components/SearchPlaces";
 import images from "../../images/images.jsx";
-
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPlacesAsync, allPlaces } from "../../redux/slices/placeSlice";
-
 import "./_LandingPage.scss";
 
 const { logoblanco, ig, fb, tiktok, turist, guide } = images;
@@ -17,14 +14,11 @@ const LandingPage = () => {
   const places = useSelector(allPlaces);
 
   useEffect(async () => {
-    const places_await = await dispatch(getAllPlacesAsync());
-    console.log(places);
+    await dispatch(getAllPlacesAsync());
   }, []);
 
   const navigate = useNavigate();
-  const handleClick = () => {
-    console.log("Gola");
-  };
+
   return (
     <div className="landing">
       <section className="section1">

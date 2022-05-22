@@ -51,13 +51,13 @@ export const loginUser = (user) => {
 };
 
 export const getOneUser = (id) => {
-  // const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_ONE_USER}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -70,13 +70,13 @@ export const getOneUser = (id) => {
 };
 
 export const getAllRequests = () => {
-  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_ALL_REQUESTS}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -89,7 +89,7 @@ export const getAllRequests = () => {
 };
 
 export const updateUser1 = ({ id, ...user }) => {
-  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.UPDATE_1}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
@@ -97,7 +97,7 @@ export const updateUser1 = ({ id, ...user }) => {
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -111,7 +111,7 @@ export const updateUser1 = ({ id, ...user }) => {
 };
 
 export const updateUser2 = ({ id, ...user }) => {
-  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.UPDATE_2}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
@@ -119,7 +119,7 @@ export const updateUser2 = ({ id, ...user }) => {
       body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())

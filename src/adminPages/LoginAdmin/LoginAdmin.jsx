@@ -5,9 +5,7 @@ import { loginAdminAsync, alertLogin } from "../../redux/slices/adminSlice";
 import { AlertError } from "../../components/Alert/index.js";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
 import images from "../../images/images";
-
 import "./_LoginAdmin.scss";
 
 const { logo } = images;

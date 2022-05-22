@@ -121,3 +121,26 @@
     }
   }
 }
+
+@media (max-width: 1300px) {
+  .landing {
+    .section3 {
+      justify-content: center;
+      text-align: center;
+
+      &__image {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .landing {
+    .section1 {
+      &__turist {
+        display: none;
+      }
+    }
+  }
+}

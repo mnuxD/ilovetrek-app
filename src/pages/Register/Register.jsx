@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
-import { Form, Input, Button, Divider } from "antd";
-import GoogleLogin from "react-google-login";
-
+import { Form, Input, Button } from "antd";
 import images from "../../images/images";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
 import "./_Register.scss";
@@ -31,18 +28,6 @@ const formItemLayout = {
     },
   },
 };
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -52,7 +37,6 @@ const Register = () => {
   const alertOnRegister = useSelector(alertRegister);
 
   const onFinish = async (values) => {
-    // console.log("Received values of form: ", values);
     const newUser = {
       email: values.email,
       password: values.password,
@@ -60,12 +44,8 @@ const Register = () => {
       lastname: values.lastname,
     };
     const created = await dispatch(registerUserAsync(newUser));
-    console.log("DATAAAA", created);
     if (created.payload) {
-      console.log("Creado");
       setIsCreated(true);
-    } else {
-      console.log("No creado");
     }
   };
 

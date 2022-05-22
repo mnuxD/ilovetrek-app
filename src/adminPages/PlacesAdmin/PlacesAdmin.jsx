@@ -1,5 +1,4 @@
 import "./_PlacesAdmin.scss";
-
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { ModalDeletePlace } from "../../components/ModalDeletePlace";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPlacesAsync, allPlaces } from "../../redux/slices/placeSlice";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

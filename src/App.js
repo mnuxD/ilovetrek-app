@@ -12,12 +12,12 @@ import { LoginAdmin } from "./adminPages/LoginAdmin";
 import { PlacesAdmin } from "./adminPages/PlacesAdmin";
 import { UsersAdmin } from "./adminPages/UsersAdmin";
 import { ViewUser } from "./adminPages/ViewUser";
-import { NotFound } from "./pages/NotFound";
 import {
   PrivateRouteAdmin,
   PrivateRouteBoth,
   PrivateRouteUser,
   PrivateRouteGuide,
+  PrivateRouteAdminGuide,
 } from "./components/PrivateRoutes/PrivateRoutes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,7 +32,6 @@ function App() {
             <Route path="/ingresar" element={<Login />} />
             <Route path="/registro" element={<Register />} />
             <Route path="/admin/ingresar" element={<LoginAdmin />} />
-            <Route path="/pagina-no-encontrada" element={<NotFound />} />
 
             {/* User and Guide Routes */}
             <Route
@@ -74,9 +73,9 @@ function App() {
             <Route
               path="/crear-destino"
               element={
-                <PrivateRouteUser routeAux={"/ingresar"}>
+                <PrivateRouteAdminGuide routeAux={"/ingresar"}>
                   <CreatePlace />
-                </PrivateRouteUser>
+                </PrivateRouteAdminGuide>
               }
             />
 

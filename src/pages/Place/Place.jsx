@@ -3,17 +3,9 @@ import Rating from "@mui/material/Rating";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
 import { CardComment } from "../../components/CardComment";
 import { UpdatePlace } from "../../components/UpdatePlace";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import moment from "moment";
-
+import { CarouselPhotos } from "../../components/CarouselPhotos";
 import "./_Place.scss";
-
 import { ModalComment } from "../../components/ModalComment";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
   getOnePlaceAsync,
@@ -45,8 +37,6 @@ const Place = () => {
       }
     }
   }, [place]);
-  const color = "#00d23b";
-  const [value, setValue] = useState(null);
   const [update, setUpdate] = useState(false);
 
   return (
@@ -55,12 +45,9 @@ const Place = () => {
         <div className="place">
           <section className="place__section1">
             <div className="place__section1__photoContainer">
-              <img
-                className="place__section1__photoContainer__image"
-                src={place?.photos[0]}
-                alt="photo_place"
-              />
+              {place && <CarouselPhotos photos={place?.photos} />}
             </div>
+
             <div className="place__section1__infoContainer">
               <p className="place__section1__infoContainer__title">
                 {place?.name}
@@ -127,7 +114,7 @@ const Place = () => {
 
           <section className="place__section2">
             <p className="place__section2__text">{place?.description}</p>
-            <p className="place__section2__title">
+            {/* <p className="place__section2__title">
               ¿Cuándo visitarás {place?.name}
             </p>
             <div className="place__section2__container">
@@ -188,7 +175,7 @@ const Place = () => {
                 <div className="place__section2__container__item--red" />
                 Alta concurrencia, no recomendable asistir
               </div>
-            </div>
+            </div> */}
             <p className="place__section2__title">¿Cómo llegar?</p>
             <p className="place__section2__text">{place?.how_to_get}</p>
             <p className="place__section2__title">Recomendaciones</p>

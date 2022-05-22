@@ -5,9 +5,7 @@ import { loginUserAsync, alertLogin } from "../../redux/slices/userSlice";
 import { AlertError } from "../../components/Alert/index.js";
 import { Form, Input, Button, Divider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
 import images from "../../images/images";
-
 import "./_Login.scss";
 
 const { logo } = images;

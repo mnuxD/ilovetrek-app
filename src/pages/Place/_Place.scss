@@ -13,19 +13,6 @@
     &__photoContainer {
       width: 480px;
       height: 360px;
-      overflow: hidden;
-      margin: 0px;
-      position: relative;
-      &__image {
-        position: absolute;
-        left: -100%;
-        right: -100%;
-        top: -100%;
-        bottom: -100%;
-        margin: auto;
-        height: auto;
-        width: 100%;
-      }
     }
     &__infoContainer {
       &__title {

@@ -1,15 +1,12 @@
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { ButtonPrimary } from "../ButtonPrimary";
 import { ButtonPrimaryOutlined } from "../ButtonPrimaryOutlined";
-import { Upload, message, Input } from "antd";
+import { Input } from "antd";
 import { RetweetOutlined, PlusOutlined } from "@ant-design/icons";
 import { AddComment } from "./AddComment";
 import { cloudinary_constant } from "../../utils/constants/cloudinary_constant";
@@ -19,7 +16,6 @@ import {
   ratingCreated,
 } from "../../redux/slices/ratingSlice";
 import { getOnePlaceAsync } from "../../redux/slices/placeSlice";
-
 import "./_ModalComment.scss";
 import labels from "../../utils/constants/RatingLabels";
 
@@ -81,7 +77,6 @@ const ModalComment = ({ place_name, place_id, user_id }) => {
       rating: value,
       comment: commentValue,
     };
-    console.log("RATING", newRating);
     await dispatch(createRatingAsync(newRating));
     await dispatch(getRatingsByPlaceAsync(place_id));
     await dispatch(getOnePlaceAsync(place_id));
@@ -108,7 +103,6 @@ const ModalComment = ({ place_name, place_id, user_id }) => {
           >
             <div className="boxModal__button" onClick={handlePhoto}>
               {imageUrl ? (
-                // <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
                 <div className="boxModal__button__content">
                   <RetweetOutlined className="boxModal__button__content__icon" />
                   <div className="boxModal__button__content__text">

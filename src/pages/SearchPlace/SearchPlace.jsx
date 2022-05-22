@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-
 import "./_SearchPlace.scss";
 import { SearchPlaces2 } from "../../components/SearchPlaces";
 import { toUser } from "../../redux/slices/userSlice";
-
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPlacesAsync, allPlaces } from "../../redux/slices/placeSlice";
 
@@ -13,7 +11,7 @@ const SearchPlace = () => {
   const places = useSelector(allPlaces);
 
   useEffect(async () => {
-    const places_await = await dispatch(getAllPlacesAsync());
+    await dispatch(getAllPlacesAsync());
   }, []);
   return (
     <div className="searchPlace">

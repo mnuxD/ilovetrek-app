@@ -5,7 +5,6 @@ import { Input, Select } from "antd";
 import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
 import { cloudinary_constant } from "../../utils/constants/cloudinary_constant";
 import { updatePlaceAsync, placeToEdit } from "../../redux/slices/placeSlice";
 
@@ -43,7 +42,6 @@ const UpdatePlace = ({ place, id, onClickChangeUpdate }) => {
       cloudinary_constant("place-ilovetrekapp", false, true),
       (err, result) => {
         if (!err && result?.event === "success") {
-          console.log(result?.info);
           photosArray.push(result.info.secure_url);
           setPhotosPlaceUrl(photosArray);
         }

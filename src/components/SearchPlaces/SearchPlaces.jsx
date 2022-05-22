@@ -1,17 +1,17 @@
 import { useState, useRef } from "react";
-
 import { CarouselCards } from "../../components/Carousel";
 import { CardPlace } from "../../components/CardPlace";
-
 import images from "../../images/images.jsx";
-// import places from "../../utils/constants/MockPlaces";
-
 import "./_SearchPlaces.scss";
 
 const { notfound } = images;
 
 const SearchPlaces = ({ places }) => {
-  const [selectedPlaces, setSelectedPlaces] = useState(places);
+  let placesVerified = [];
+  for (let i = 0; i < places.length; i++) {
+    if (places[i].verified === true) placesVerified.push(places[i]);
+  }
+  const [selectedPlaces, setSelectedPlaces] = useState(placesVerified);
   const place = useRef("");
   const city = useRef("");
   const difficulty = useRef("");
@@ -32,7 +32,7 @@ const SearchPlaces = ({ places }) => {
       }
       return a;
     };
-    places?.map((placemap, i) => {
+    placesVerified?.map((placemap, i) => {
       if (
         filterByName(placemap.name, place.current.value) &&
         transformText(placemap.city).startsWith(

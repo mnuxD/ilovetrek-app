@@ -4,14 +4,11 @@ import { ButtonPrimary } from "../../components/ButtonPrimary";
 import { Form, Input, Select } from "antd";
 import AddIcon from "@mui/icons-material/Add";
 
-import images from "../../images/images";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { cloudinary_constant } from "../../utils/constants/cloudinary_constant";
 import { createPlaceAsync, placeCreated } from "../../redux/slices/placeSlice";
 
-const { catarata } = images;
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -54,7 +51,6 @@ const CreatePlace = () => {
       cloudinary_constant("place-ilovetrekapp", false, true),
       (err, result) => {
         if (!err && result?.event === "success") {
-          console.log(result?.info);
           photosArray.push(result.info.secure_url);
           setPhotosPlaceUrl(photosArray);
         }

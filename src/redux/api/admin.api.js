@@ -26,13 +26,13 @@ export const loginAdmin = (admin) => {
 };
 
 export const getOneAdmin = (id) => {
-  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_ONE_ADMIN}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {

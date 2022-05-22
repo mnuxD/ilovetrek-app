@@ -8,13 +8,14 @@ const ENDPOINTS = {
 
 export const createRating = (rating) => {
   const path = `${API_SERVER}${ENDPOINTS.CREATE}`;
-
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   return new Promise((resolve, reject) => {
     fetch(path, {
       method: "POST",
       body: JSON.stringify(rating),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -28,13 +29,13 @@ export const createRating = (rating) => {
 };
 
 export const getRatingByPlace = (id) => {
-  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_BY_PLACE}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -47,13 +48,13 @@ export const getRatingByPlace = (id) => {
 };
 
 export const deleteRating = (id) => {
-  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.DELETE}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
       method: "DELETE",
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())

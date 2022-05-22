@@ -1,21 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toUser } from "../../redux/slices/userSlice";
-
 import { ButtonPrimary } from "../../components/ButtonPrimary";
-import { CardSimplePlace } from "../../components/CardSimplePlace";
-import { CardPlace } from "../../components/CardPlace";
-
 import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import { Form, Input } from "antd";
-import { CarouselCards2 } from "../../components/Carousel";
-import images from "../../images/images";
-import places from "../../utils/constants/MockPlaces";
 import { cloudinary_constant } from "../../utils/constants/cloudinary_constant";
 import "./_Profile.scss";
-
 import {
   updateUser1Async,
   updateUser2Async,
@@ -40,7 +32,6 @@ const formItemLayout = {
     },
   },
 };
-const { catarata } = images;
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -53,8 +44,6 @@ const Profile = () => {
   const pass2 = useRef("");
   const [form] = Form.useForm();
 
-  console.log(pass1.current?.input?.value, pass2.current?.input?.value);
-  console.log(passCorrect);
   const goEdit = async () => {
     setEdit(true);
     await dispatch(userToEdit(USER));
@@ -154,7 +143,25 @@ const Profile = () => {
                     {USER?.email}
                   </span>
                 </p>
-                <Form.Item name="password" label="Contraseña" hasFeedback>
+                <Form.Item
+                  name="password"
+                  label="Contraseña"
+                  hasFeedback
+                  rules={[
+                    () => ({
+                      validator(_, value) {
+                        if (value.length >= 8) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "La contraseña debe tener almenos 8 caracteres."
+                          )
+                        );
+                      },
+                    }),
+                  ]}
+                >
                   <Input.Password ref={pass1} />
                 </Form.Item>
                 <Form.Item

@@ -11,6 +11,7 @@ import {
   deleteRatingAsync,
   getRatingsByPlaceAsync,
 } from "../../../redux/slices/ratingSlice";
+import { getOnePlaceAsync } from "../../../redux/slices/placeSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -36,6 +37,7 @@ const DeleteComment = ({ idRating, idPlace }) => {
   const handleDelete = async () => {
     await dispatch(deleteRatingAsync(idRating));
     await dispatch(getRatingsByPlaceAsync(id));
+    await dispatch(getOnePlaceAsync(idPlace));
     handleClose();
   };
 

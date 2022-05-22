@@ -26,7 +26,6 @@ const ModalDeletePlace = ({ idPlace, namePlace }) => {
   const dispatch = useDispatch();
   const handleOpen = (e) => {
     e.preventDefault();
-    console.log("HOLA");
     setOpen(true);
   };
   const handleClose = () => setOpen(false);

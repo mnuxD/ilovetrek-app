@@ -10,13 +10,14 @@ const ENDPOINTS = {
 
 export const createPlace = (place) => {
   const path = `${API_SERVER}${ENDPOINTS.CREATE}`;
-
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   return new Promise((resolve, reject) => {
     fetch(path, {
       method: "POST",
       body: JSON.stringify(place),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -30,13 +31,13 @@ export const createPlace = (place) => {
 };
 
 export const getOnePlace = (id) => {
-  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_PLACE}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -49,14 +50,9 @@ export const getOnePlace = (id) => {
 };
 
 export const getAllPlaces = () => {
-  //   const token = JSON.parse(localStorage.getItem("infoUser")).token;
   const path = `${API_SERVER}${ENDPOINTS.GET_PLACE}`;
   return new Promise((resolve, reject) => {
-    fetch(path, {
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
-    })
+    fetch(path, {})
       .then((response) => response.json())
       .then((data) => {
         resolve({ data });
@@ -68,14 +64,14 @@ export const getAllPlaces = () => {
 };
 
 export const changeVerified = (id) => {
-  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.CHANGE_VERIFIED}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -89,7 +85,7 @@ export const changeVerified = (id) => {
 };
 
 export const updatePlace = ({ id, ...place }) => {
-  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.UPDATE_PLACE}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
@@ -97,7 +93,7 @@ export const updatePlace = ({ id, ...place }) => {
       body: JSON.stringify(place),
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -111,13 +107,13 @@ export const updatePlace = ({ id, ...place }) => {
 };
 
 export const deletePlace = (id) => {
-  // const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const token = JSON.parse(localStorage.getItem("infoUserILoveTrekApp")).token;
   const path = `${API_SERVER}${ENDPOINTS.DELETE_PLACE}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
       method: "DELETE",
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
